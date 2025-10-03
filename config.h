@@ -2,7 +2,7 @@
 #define CONFIG_H
 
 // String used to delimit block outputs in the status.
-#define DELIMITER "  "
+#define DELIMITER " | "
 
 // Maximum number of Unicode characters that a block can output.
 #define MAX_BLOCK_OUTPUT_LENGTH 45
@@ -18,15 +18,11 @@
 
 // Define blocks for the status feed as X(icon, cmd, interval, signal).
 #define BLOCKS(X)             \
-    X("", "sb-mail", 600, 1)  \
-    X("", "sb-music", 0, 2)   \
-    X("", "sb-disk", 1800, 3) \
-    X("", "sb-memory", 10, 4) \
-    X("", "sb-loadavg", 5, 5) \
-    X("", "sb-mic", 0, 6)     \
-    X("", "sb-record", 0, 7)  \
-    X("", "sb-volume", 0, 8)  \
-    X("", "sb-battery", 5, 9) \
-    X("", "sb-date", 1, 10)
+    X("", "amixer get Master | awk -F'[][]' 'END{if($4==\"off\"){print \"MUTE\"}else{print \"VOL \"$2}}'", 1, 0)  \
+    X("CPU", "top -bn1 | grep 'Cpu(s)' | awk '{print 100 - $8 \"%\"}'", 1, 0)   \
+    X("TEMP", "sensors | awk '/Package id 0:/ {print $4}'", 5, 0) \
+    X("MEM", "free -h --giga | awk '/Mem:/ {print $3 \"/\" $2}'", 5, 0) \
+    X("IP", "ip -4 addr show wlo1 | awk '/inet / {print $2}' | cut -d/ -f1", 10, 0) \
+    X("", "date '+%a %b %d, %Y %H:%M'", 30, 0)     \
 
 #endif  // CONFIG_H
