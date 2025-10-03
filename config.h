@@ -24,6 +24,6 @@
     X("MEM ", "free -h --giga | awk '/Mem:/ {print $3 \"/\" $2}'", 5, 0) \
     X("IP ", "ip -4 addr show wlo1 | awk '/inet / {print $2}' | cut -d/ -f1", 600, 0) \
     X("", "date '+%a %b %d, %Y %H:%M'", 30, 0)     \
-    X("", "~/.scripts/battery.sh", 5, 0) \
+    X("", "~/.scripts/battery.sh", 10, 0) \
 
 #endif  // CONFIG_H
