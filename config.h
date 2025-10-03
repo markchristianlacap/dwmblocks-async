@@ -19,10 +19,11 @@
 // Define blocks for the status feed as X(icon, cmd, interval, signal).
 #define BLOCKS(X)             \
     X("", "amixer get Master | awk -F'[][]' 'END{if($4==\"off\"){print \"MUTE\"}else{print \"VOL \"$2}}'", 1, 0)  \
-    X("CPU", "top -bn1 | grep 'Cpu(s)' | awk '{print 100 - $8 \"%\"}'", 1, 0)   \
-    X("TEMP", "sensors | awk '/Package id 0:/ {print $4}'", 5, 0) \
-    X("MEM", "free -h --giga | awk '/Mem:/ {print $3 \"/\" $2}'", 5, 0) \
-    X("IP", "ip -4 addr show wlo1 | awk '/inet / {print $2}' | cut -d/ -f1", 10, 0) \
+    X("CPU ", "top -bn1 | grep 'Cpu(s)' | awk '{print 100 - $8 \"%\"}'", 1, 0)   \
+    X("TEMP ", "sensors | awk '/Package id 0:/ {print $4}'", 5, 0) \
+    X("MEM ", "free -h --giga | awk '/Mem:/ {print $3 \"/\" $2}'", 5, 0) \
+    X("IP ", "ip -4 addr show wlo1 | awk '/inet / {print $2}' | cut -d/ -f1", 600, 0) \
     X("", "date '+%a %b %d, %Y %H:%M'", 30, 0)     \
+    X("", "~/.scripts/battery.sh", 5, 0) \
 
 #endif  // CONFIG_H
